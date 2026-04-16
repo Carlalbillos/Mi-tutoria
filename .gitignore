@@ -1,0 +1,18 @@
+# Ignore everything
+*
+!.gitignore
+
+# Except frontend, backend, and db_init folders
+!frontend/
+!backend/
+!db_init/
+
+# Allow all files within these directories
+frontend/**
+backend/**
+db_init/**
+
+# But ignore specific files that might be in these directories
+frontend/node_modules/
+backend/node_modules/
+backend/.env
