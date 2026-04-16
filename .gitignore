@@ -1,18 +1,20 @@
-# Ignore everything
-*
+# Ignorar todo en el directorio raíz
+/*
+
+# Excepto el .gitignore en sí
 !.gitignore
 
-# Except frontend, backend, and db_init folders
+# Permitir las carpetas principales
 !frontend/
 !backend/
 !db_init/
 
-# Allow all files within these directories
-frontend/**
-backend/**
-db_init/**
-
-# But ignore specific files that might be in these directories
+# Ignorar node_modules y .env dentro de ellas
 frontend/node_modules/
 backend/node_modules/
 backend/.env
+
+# Permitir todo lo demás dentro de esas carpetas
+frontend/**
+backend/**
+db_init/**
