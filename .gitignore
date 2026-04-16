@@ -9,12 +9,13 @@
 !backend/
 !db_init/
 
-# Ignorar node_modules y .env dentro de ellas
-frontend/node_modules/
-backend/node_modules/
+# Ignorar node_modules en cualquier subdirectorio
+**/node_modules/
+
+# Ignorar .env de backend
 backend/.env
 
 # Permitir todo lo demás dentro de esas carpetas
-frontend/**
-backend/**
-db_init/**
+!frontend/**
+!backend/**
+!db_init/**

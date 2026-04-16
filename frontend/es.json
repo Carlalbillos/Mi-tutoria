@@ -1,0 +1,136 @@
+{
+  "app": {
+    "title": "Mi Tutoría",
+    "institute": "Instituto Miralcamp"
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar Sesión",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "alumno@miralcamp.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Iniciar Sesión",
+      "noAccount": "¿No tienes cuenta?",
+      "register": "Regístrate",
+      "loading": "Iniciando..."
+    },
+    "register": {
+      "title": "Crear Cuenta",
+      "fullName": "Nombre Completo",
+      "fullNamePlaceholder": "Juan Pérez",
+      "email": "Correo Electrónico",
+      "emailPlaceholder": "juan@miralcamp.com",
+      "password": "Contraseña",
+      "passwordPlaceholder": "••••••••",
+      "role": "Perfil",
+      "submit": "Crear Cuenta",
+      "hasAccount": "¿Ya tienes cuenta?",
+      "login": "Inicia Sesión",
+      "loading": "Creando...",
+      "success": "Cuenta creada exitosamente. Por favor, inicia sesión.",
+      "roleStudent": "Alumno",
+      "roleTeacher": "Profesor",
+      "course": "Curso",
+      "selectCourse": "Selecciona tu curso",
+      "department": "Departamento",
+      "selectDepartment": "Selecciona tu departamento"
+    },
+    "messages": {
+      "loginSuccess": "Acceso exitoso. Redirigiendo...",
+      "redirecting": "Redirigiendo..."
+    }
+  },
+  "dashboard": {
+    "logout": "Cerrar Sesión",
+    "alumno": {
+      "title": "Panel de Alumno",
+      "loading": "Cargando...",
+      "notifications": "🔔 Notificaciones Recientes",
+      "markAllRead": "Marcar todas como leídas",
+      "bookTutoring": "Reservar una Tutoría",
+      "bookDescription": "Selecciona un profesor y elige el día/hora para agendar.",
+      "teacher": "Profesor",
+      "loadingTeachers": "Cargando profesores...",
+      "selectTimeSlot": "Selecciona un hueco disponible",
+      "timeSlot": "Selecciona horario",
+      "noSlots": "Este profesor no tiene huecos",
+      "subject": "Asignatura (Opcional)",
+      "generalSubject": "General / Otras dudas",
+      "reason": "Motivo de la Tutoría",
+      "reasonPlaceholder": "Dudas del tema 4...",
+      "confirmBooking": "Confirmar Reserva",
+      "upcomingTutorings": "Mis Próximas Citas",
+      "tutoringsDescription": "Citas pendientes e histórico.",
+      "pastTutorings": "Historial de Citas Pasadas",
+      "noTutorings": "No has reservado ninguna cita.",
+      "emptyHistory": "Historial vacío.",
+      "messages": {
+        "fillAllFields": "Rellena todos los campos",
+        "bookingSuccess": "¡Reserva completada con éxito!",
+        "cancelConfirm": "¿Seguro que quieres cancelar esta tutoría?",
+        "cancelSuccess": "Tutoría cancelada",
+        "errorLoadingTeachers": "Error cargando profesores",
+        "errorLoadingTutorings": "Error cargando tutorías.",
+        "noUpcoming": "No tienes próximas citas activas."
+      }
+    },
+    "profesor": {
+      "title": "Panel de Profesor",
+      "loading": "Cargando...",
+      "notifications": "🔔 Notificaciones Recientes",
+      "markAllRead": "Marcar todas como leídas",
+      "availability": "Mi Disponibilidad",
+      "availabilityDescription": "Define los bloques horarios donde los alumnos podrán reservarte tutorías.",
+      "day": "Día",
+      "startTime": "Hora Inicio",
+      "endTime": "Hora Fin",
+      "addSlot": "Añadir Hueco",
+      "savedBlocks": "Bloques guardados:",
+      "myTutorings": "Mis Tutorías",
+      "tutoringsDescription": "Listado de tutorías que los alumnos han reservado contigo.",
+      "pastTutorings": "Historial de Citas Pasadas",
+      "noBlocks": "No has definido ningún bloque.",
+      "noTutorings": "No tienes tutorías reservadas.",
+      "emptyHistory": "Historial vacío.",
+      "messages": {
+        "blockAdded": "Bloque añadido correctamente",
+        "deleteConfirm": "¿Eliminar bloque horario?",
+        "blockDeleted": "Bloque eliminado",
+        "errorLoadingSlots": "Error cargando horarios.",
+        "errorLoadingTutorings": "Error cargando tutorías.",
+        "statusConfirm": "¿Marcar tutoría como {status}?",
+        "statusUpdated": "Tutoría {status}"
+      }
+    }
+  },
+  "status": {
+    "reserved": "reservada",
+    "cancelled": "cancelada",
+    "completed": "completada",
+    "loading": "Cargando..."
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "complete": "Completar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "save": "Guardar",
+    "close": "Cerrar",
+    "error": "Error",
+    "success": "Éxito",
+    "confirm": "Confirmar",
+    "back": "Atrás"
+  },
+  "labels": {
+    "reason": "Motivo",
+    "subject": "Asignatura",
+    "teacher": "Profesor",
+    "student": "Alumno",
+    "date": "Fecha",
+    "time": "Hora",
+    "status": "Estado",
+    "prof": "Prof"
+  },
+  "language": "Idioma"
+}

@@ -1,0 +1,260 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Tutoría - Panel de Alumno</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+      .grid-layout {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 2rem;
+      }
+      .section-card {
+        background-color: var(--surface-color);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+      }
+      .list-group {
+        list-style: none;
+        margin-top: 1rem;
+      }
+      .list-item {
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: var(--radius-md);
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .badge {
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--radius-md);
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+      .badge-reservada {
+        background: rgba(79, 70, 229, 0.2);
+        color: #818cf8;
+      }
+      .badge-cancelada {
+        background: rgba(239, 68, 68, 0.2);
+        color: #fca5a5;
+      }
+      .badge-completada {
+        background: rgba(16, 185, 129, 0.2);
+        color: #6ee7b7;
+      }
+      @media (max-width: 768px) {
+        .grid-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="dashboard-header">
+        <div>
+          <h2 data-i18n="dashboard.alumno.title">Panel de Alumno</h2>
+          <p id="welcome-msg" data-i18n="dashboard.alumno.loading">
+            Cargando...
+          </p>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center">
+          <select
+            id="language-select"
+            onchange="setLanguage(this.value)"
+            style="
+              padding: 0.5rem;
+              border-radius: 0.25rem;
+              border: 1px solid var(--border-color);
+              background-color: var(--surface-color);
+              color: var(--text-color);
+            "
+          >
+            <option value="es">Español</option>
+            <option value="en">English</option>
+          </select>
+          <button
+            class="btn btn-secondary"
+            onclick="logout()"
+            style="width: auto"
+            data-i18n="dashboard.logout"
+          >
+            Cerrar Sesión
+          </button>
+        </div>
+      </header>
+
+      <div id="alert-box" class="alert hidden"></div>
+
+      <!-- Centro de Notificacioness -->
+      <div id="notif-pane" class="section-card mb-6 hidden">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+          "
+        >
+          <h4 style="margin: 0" data-i18n="dashboard.alumno.notifications">
+            🔔 Notificaciones Recientes
+          </h4>
+          <button
+            class="link"
+            onclick="markAllNotifsRead()"
+            style="font-size: 0.8rem"
+            data-i18n="dashboard.alumno.markAllRead"
+          >
+            Marcar todas como leídas
+          </button>
+        </div>
+        <ul
+          id="notif-list"
+          class="list-group"
+          style="max-height: 200px; overflow-y: auto; margin: 0"
+        ></ul>
+      </div>
+
+      <div class="grid-layout">
+        <!-- Buscar y Reservar -->
+        <div class="section-card">
+          <h3 data-i18n="dashboard.alumno.bookTutoring">
+            Reservar una Tutoría
+          </h3>
+          <p class="mb-6" data-i18n="dashboard.alumno.bookDescription">
+            Selecciona un profesor y elige el día/hora para agendar.
+          </p>
+
+          <form id="book-form" class="mb-6">
+            <div class="form-group">
+              <label data-i18n="dashboard.alumno.teacher">Profesor</label>
+              <select id="book-teacher" class="form-control" required>
+                <option value="" data-i18n="dashboard.alumno.loadingTeachers">
+                  Cargando profesores...
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group hidden" id="availability-wrapper">
+              <label data-i18n="dashboard.alumno.selectTimeSlot"
+                >Selecciona un hueco disponible</label
+              >
+              <select id="book-slot" class="form-control" required>
+                <option value="" data-i18n="dashboard.alumno.timeSlot">
+                  Selecciona horario
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group mt-4">
+              <label data-i18n="dashboard.alumno.subject"
+                >Asignatura (Opcional)</label
+              >
+              <select id="book-subject" class="form-control">
+                <option value="" data-i18n="dashboard.alumno.generalSubject">
+                  General / Otras dudas
+                </option>
+              </select>
+            </div>
+
+            <div class="form-group mt-4">
+              <label data-i18n="dashboard.alumno.reason"
+                >Motivo de la Tutoría</label
+              >
+              <input
+                type="text"
+                id="book-reason"
+                class="form-control"
+                placeholder="Dudas del tema 4..."
+                data-i18n-placeholder="dashboard.alumno.reasonPlaceholder"
+                maxlength="200"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              class="btn btn-primary"
+              id="btn-book"
+              disabled
+              data-i18n="dashboard.alumno.confirmBooking"
+            >
+              Confirmar Reserva
+            </button>
+          </form>
+        </div>
+
+        <!-- Mis Reservas Histórico -->
+        <div class="section-card">
+          <h3 data-i18n="dashboard.alumno.upcomingTutorings">
+            Mis Próximas Citas
+          </h3>
+          <p class="mb-6" data-i18n="dashboard.alumno.tutoringsDescription">
+            Citas pendientes e histórico.
+          </p>
+
+          <ul class="list-group" id="tutoring-list">
+            <li class="list-item" data-i18n="dashboard.alumno.loading">
+              Cargando...
+            </li>
+          </ul>
+
+          <h4
+            style="margin-top: 2rem"
+            data-i18n="dashboard.alumno.pastTutorings"
+          >
+            Historial de Citas Pasadas
+          </h4>
+          <ul class="list-group" id="history-list"></ul>
+        </div>
+      </div>
+    </div>
+    <script src="js/i18n.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/dashboard-alumno.js"></script>
+    <script>
+      // Initialize i18n before showing page
+      initI18n().then(() => {
+        applyTranslations();
+        document.getElementById("language-select").value = getLanguage();
+      });
+
+      // Apply translations to all elements
+      function applyTranslations() {
+        document.documentElement.lang = getLanguage();
+
+        // Translate text content
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          el.textContent = t(key);
+        });
+
+        // Translate placeholders
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          el.placeholder = t(key);
+        });
+      }
+
+      // Re-apply translations when language changes
+      window.addEventListener("languageChanged", () => {
+        applyTranslations();
+      });
+    </script>
+  </body>
+</html>

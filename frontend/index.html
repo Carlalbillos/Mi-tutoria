@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Plataforma de gestión de tutorías para profesores y alumnos del Instituto Miralcamp"
+    />
+    <title>Mi Tutoría - Acceder</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <div class="auth-wrapper">
+      <div class="card" id="auth-card">
+        <div class="text-center mb-6">
+          <h1 data-i18n="app.title">Mi Tutoría</h1>
+          <p data-i18n="app.institute">Instituto Miralcamp</p>
+          <div style="margin-top: 1rem; text-align: right">
+            <select
+              id="language-select"
+              onchange="setLanguage(this.value)"
+              style="
+                padding: 0.5rem;
+                border-radius: 0.25rem;
+                border: 1px solid var(--border-color);
+                background-color: var(--surface-color);
+                color: var(--text-color);
+              "
+            >
+              <option value="es">Español</option>
+              <option value="en">English</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="alert-box" class="alert hidden"></div>
+
+        <!-- Login View -->
+        <form id="login-form">
+          <div class="form-group">
+            <label for="login-email" data-i18n="auth.login.email"
+              >Correo Electrónico</label
+            >
+            <input
+              type="email"
+              id="login-email"
+              class="form-control"
+              required
+              placeholder="alumno@miralcamp.com"
+              data-i18n-placeholder="auth.login.emailPlaceholder"
+            />
+          </div>
+          <div class="form-group">
+            <label for="login-password" data-i18n="auth.login.password"
+              >Contraseña</label
+            >
+            <input
+              type="password"
+              id="login-password"
+              class="form-control"
+              required
+              placeholder="••••••••"
+              data-i18n-placeholder="auth.login.passwordPlaceholder"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary mt-4"
+            data-i18n="auth.login.submit"
+          >
+            Iniciar Sesión
+          </button>
+          <div class="text-center mt-4">
+            <p>
+              <span data-i18n="auth.login.noAccount">¿No tienes cuenta?</span>
+              <span
+                class="link"
+                onclick="toggleAuthView()"
+                data-i18n="auth.login.register"
+                >Regístrate</span
+              >
+            </p>
+          </div>
+        </form>
+
+        <!-- Register View -->
+        <form id="register-form" class="hidden">
+          <div class="form-group">
+            <label for="reg-name" data-i18n="auth.register.fullName"
+              >Nombre Completo</label
+            >
+            <input
+              type="text"
+              id="reg-name"
+              class="form-control"
+              required
+              placeholder="Juan Pérez"
+              data-i18n-placeholder="auth.register.fullNamePlaceholder"
+            />
+          </div>
+          <div class="form-group">
+            <label for="reg-email" data-i18n="auth.register.email"
+              >Correo Electrónico</label
+            >
+            <input
+              type="email"
+              id="reg-email"
+              class="form-control"
+              required
+              placeholder="juan@miralcamp.com"
+              data-i18n-placeholder="auth.register.emailPlaceholder"
+            />
+          </div>
+          <div class="form-group">
+            <label for="reg-password" data-i18n="auth.register.password"
+              >Contraseña</label
+            >
+            <input
+              type="password"
+              id="reg-password"
+              class="form-control"
+              required
+              placeholder="••••••••"
+              data-i18n-placeholder="auth.register.passwordPlaceholder"
+            />
+          </div>
+          <div class="form-group">
+            <label for="reg-role" data-i18n="auth.register.role">Perfil</label>
+            <select id="reg-role" class="form-control" required>
+              <option value="alumno" data-i18n="auth.register.roleStudent">
+                Alumno
+              </option>
+              <option value="profesor" data-i18n="auth.register.roleTeacher">
+                Profesor
+              </option>
+            </select>
+          </div>
+          <div id="course-group" class="form-group">
+            <label data-i18n="auth.register.course">Curso</label>
+            <select id="reg-course" class="form-control" required>
+              <option value="" data-i18n="auth.register.selectCourse">
+                Selecciona tu curso
+              </option>
+            </select>
+          </div>
+
+          <div id="dept-group" class="form-group hidden">
+            <label data-i18n="auth.register.department">Departamento</label>
+            <select id="reg-dept" class="form-control">
+              <option value="" data-i18n="auth.register.selectDepartment">
+                Selecciona tu departamento
+              </option>
+            </select>
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary mt-4"
+            data-i18n="auth.register.submit"
+          >
+            Crear Cuenta
+          </button>
+          <div class="text-center mt-4">
+            <p>
+              <span data-i18n="auth.register.hasAccount"
+                >¿Ya tienes cuenta?</span
+              >
+              <span
+                class="link"
+                onclick="toggleAuthView()"
+                data-i18n="auth.register.login"
+                >Inicia Sesión</span
+              >
+            </p>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="js/i18n.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+      // Initialize i18n before showing page
+      initI18n().then(() => {
+        applyTranslations();
+        // Set language selector to current language
+        document.getElementById("language-select").value = getLanguage();
+      });
+
+      // Apply translations to all elements
+      function applyTranslations() {
+        document.documentElement.lang = getLanguage();
+
+        // Translate text content
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          el.textContent = t(key);
+        });
+
+        // Translate placeholders
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          el.placeholder = t(key);
+        });
+      }
+
+      // Re-apply translations when language changes
+      window.addEventListener("languageChanged", () => {
+        applyTranslations();
+      });
+    </script>
+  </body>
+</html>

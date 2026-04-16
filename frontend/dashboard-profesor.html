@@ -1,0 +1,255 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mi Tutoría - Panel de Profesor</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border-color);
+      }
+
+      .grid-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
+      }
+
+      .section-card {
+        background-color: var(--surface-color);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        box-shadow: var(--shadow-md);
+      }
+
+      .list-group {
+        list-style: none;
+        margin-top: 1rem;
+      }
+
+      .list-item {
+        padding: 1rem;
+        border: 1px solid var(--border-color);
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: var(--radius-md);
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .badge {
+        padding: 0.25rem 0.5rem;
+        border-radius: var(--radius-md);
+        font-size: 0.75rem;
+        font-weight: 500;
+      }
+
+      .badge-reservada {
+        background: rgba(79, 70, 229, 0.2);
+        color: #818cf8;
+      }
+
+      .badge-cancelada {
+        background: rgba(239, 68, 68, 0.2);
+        color: #fca5a5;
+      }
+
+      .badge-completada {
+        background: rgba(16, 185, 129, 0.2);
+        color: #6ee7b7;
+      }
+
+      @media (max-width: 768px) {
+        .grid-layout {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="container">
+      <header class="dashboard-header">
+        <div>
+          <h2 data-i18n="dashboard.profesor.title">Panel de Profesor</h2>
+          <p id="welcome-msg" data-i18n="dashboard.profesor.loading">
+            Cargando...
+          </p>
+        </div>
+        <div style="display: flex; gap: 1rem; align-items: center">
+          <select
+            id="language-select"
+            onchange="setLanguage(this.value)"
+            style="
+              padding: 0.5rem;
+              border-radius: 0.25rem;
+              border: 1px solid var(--border-color);
+              background-color: var(--surface-color);
+              color: var(--text-color);
+            "
+          >
+            <option value="es">Español</option>
+            <option value="en">English</option>
+          </select>
+          <button
+            class="btn btn-secondary"
+            onclick="logout()"
+            style="width: auto"
+            data-i18n="dashboard.logout"
+          >
+            Cerrar Sesión
+          </button>
+        </div>
+      </header>
+
+      <div id="alert-box" class="alert hidden"></div>
+
+      <!-- Centro de Notificaciones -->
+      <div id="notif-pane" class="section-card mb-6 hidden">
+        <div
+          style="
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+          "
+        >
+          <h4 style="margin: 0" data-i18n="dashboard.profesor.notifications">
+            🔔 Notificaciones Recientes
+          </h4>
+          <button
+            class="link"
+            onclick="markAllNotifsRead()"
+            style="font-size: 0.8rem"
+            data-i18n="dashboard.profesor.markAllRead"
+          >
+            Marcar todas como leídas
+          </button>
+        </div>
+        <ul
+          id="notif-list"
+          class="list-group"
+          style="max-height: 200px; overflow-y: auto; margin: 0"
+        ></ul>
+      </div>
+
+      <div class="grid-layout">
+        <!-- Disponibilidad -->
+        <div class="section-card">
+          <h3 data-i18n="dashboard.profesor.availability">Mi Disponibilidad</h3>
+          <p
+            class="mb-6"
+            data-i18n="dashboard.profesor.availabilityDescription"
+          >
+            Define los bloques horarios donde los alumnos podrán reservarte
+            tutorías.
+          </p>
+
+          <form id="avail-form" class="mb-6">
+            <div class="form-group">
+              <label data-i18n="dashboard.profesor.day">Día</label>
+              <input type="date" id="avail-day" class="form-control" required />
+            </div>
+            <div style="display: flex; gap: 1rem">
+              <div class="form-group" style="flex: 1">
+                <label data-i18n="dashboard.profesor.startTime"
+                  >Hora Inicio</label
+                >
+                <input
+                  type="time"
+                  id="avail-start"
+                  class="form-control"
+                  required
+                />
+              </div>
+              <div class="form-group" style="flex: 1">
+                <label data-i18n="dashboard.profesor.endTime">Hora Fin</label>
+                <input
+                  type="time"
+                  id="avail-end"
+                  class="form-control"
+                  required
+                />
+              </div>
+            </div>
+            <button
+              type="submit"
+              class="btn btn-primary"
+              data-i18n="dashboard.profesor.addSlot"
+            >
+              Añadir Hueco
+            </button>
+          </form>
+
+          <h4 data-i18n="dashboard.profesor.savedBlocks">Bloques guardados:</h4>
+          <ul class="list-group" id="avail-list">
+            <li class="list-item" data-i18n="dashboard.profesor.loading">
+              Cargando...
+            </li>
+          </ul>
+        </div>
+
+        <!-- Tutorías Reservadas -->
+        <div class="section-card">
+          <h3 data-i18n="dashboard.profesor.myTutorings">Mis Tutorías</h3>
+          <p class="mb-6" data-i18n="dashboard.profesor.tutoringsDescription">
+            Listado de tutorías que los alumnos han reservado contigo.
+          </p>
+
+          <ul class="list-group" id="tutoring-list">
+            <li class="list-item" data-i18n="dashboard.profesor.loading">
+              Cargando...
+            </li>
+          </ul>
+
+          <h4
+            style="margin-top: 2rem"
+            data-i18n="dashboard.profesor.pastTutorings"
+          >
+            Historial de Citas Pasadas
+          </h4>
+          <ul class="list-group" id="history-list"></ul>
+        </div>
+      </div>
+    </div>
+    <script src="js/i18n.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/dashboard-profesor.js"></script>
+    <script>
+      // Initialize i18n before showing page
+      initI18n().then(() => {
+        applyTranslations();
+        document.getElementById("language-select").value = getLanguage();
+      });
+
+      // Apply translations to all elements
+      function applyTranslations() {
+        document.documentElement.lang = getLanguage();
+
+        // Translate text content
+        document.querySelectorAll("[data-i18n]").forEach((el) => {
+          const key = el.getAttribute("data-i18n");
+          el.textContent = t(key);
+        });
+
+        // Translate placeholders
+        document.querySelectorAll("[data-i18n-placeholder]").forEach((el) => {
+          const key = el.getAttribute("data-i18n-placeholder");
+          el.placeholder = t(key);
+        });
+      }
+
+      // Re-apply translations when language changes
+      window.addEventListener("languageChanged", () => {
+        applyTranslations();
+      });
+    </script>
+  </body>
+</html>

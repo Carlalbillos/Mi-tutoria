@@ -1,0 +1,136 @@
+{
+  "app": {
+    "title": "My Tutoring",
+    "institute": "Miralcamp Institute"
+  },
+  "auth": {
+    "login": {
+      "title": "Log In",
+      "email": "Email",
+      "emailPlaceholder": "student@miralcamp.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "submit": "Log In",
+      "noAccount": "Don't have an account?",
+      "register": "Sign Up",
+      "loading": "Logging in..."
+    },
+    "register": {
+      "title": "Create Account",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "John Smith",
+      "email": "Email",
+      "emailPlaceholder": "john@miralcamp.com",
+      "password": "Password",
+      "passwordPlaceholder": "••••••••",
+      "role": "Profile",
+      "submit": "Create Account",
+      "hasAccount": "Already have an account?",
+      "login": "Log In",
+      "loading": "Creating...",
+      "success": "Account created successfully. Please log in.",
+      "roleStudent": "Student",
+      "roleTeacher": "Teacher",
+      "course": "Course",
+      "selectCourse": "Select your course",
+      "department": "Department",
+      "selectDepartment": "Select your department"
+    },
+    "messages": {
+      "loginSuccess": "Login successful. Redirecting...",
+      "redirecting": "Redirecting..."
+    }
+  },
+  "dashboard": {
+    "logout": "Log Out",
+    "alumno": {
+      "title": "Student Dashboard",
+      "loading": "Loading...",
+      "notifications": "🔔 Recent Notifications",
+      "markAllRead": "Mark all as read",
+      "bookTutoring": "Book a Tutoring",
+      "bookDescription": "Select a teacher and choose the day/time to schedule.",
+      "teacher": "Teacher",
+      "loadingTeachers": "Loading teachers...",
+      "selectTimeSlot": "Select an available time slot",
+      "timeSlot": "Select time",
+      "noSlots": "This teacher has no available slots",
+      "subject": "Subject (Optional)",
+      "generalSubject": "General / Other questions",
+      "reason": "Tutoring Reason",
+      "reasonPlaceholder": "Questions about topic 4...",
+      "confirmBooking": "Confirm Booking",
+      "upcomingTutorings": "My Upcoming Appointments",
+      "tutoringsDescription": "Pending and past appointments.",
+      "pastTutorings": "Past Appointments History",
+      "noTutorings": "You haven't booked any appointments.",
+      "emptyHistory": "Empty history.",
+      "messages": {
+        "fillAllFields": "Fill in all fields",
+        "bookingSuccess": "Booking completed successfully!",
+        "cancelConfirm": "Are you sure you want to cancel this tutoring?",
+        "cancelSuccess": "Tutoring cancelled",
+        "errorLoadingTeachers": "Error loading teachers",
+        "errorLoadingTutorings": "Error loading tutorings.",
+        "noUpcoming": "You have no upcoming active appointments."
+      }
+    },
+    "profesor": {
+      "title": "Teacher Dashboard",
+      "loading": "Loading...",
+      "notifications": "🔔 Recent Notifications",
+      "markAllRead": "Mark all as read",
+      "availability": "My Availability",
+      "availabilityDescription": "Define the time slots when students can book tutorings with you.",
+      "day": "Day",
+      "startTime": "Start Time",
+      "endTime": "End Time",
+      "addSlot": "Add Slot",
+      "savedBlocks": "Saved blocks:",
+      "myTutorings": "My Tutorings",
+      "tutoringsDescription": "List of tutorings that students have booked with you.",
+      "pastTutorings": "Past Appointments History",
+      "noBlocks": "You haven't defined any blocks.",
+      "noTutorings": "You have no booked tutorings.",
+      "emptyHistory": "Empty history.",
+      "messages": {
+        "blockAdded": "Block added successfully",
+        "deleteConfirm": "Delete time block?",
+        "blockDeleted": "Block deleted",
+        "errorLoadingSlots": "Error loading time slots.",
+        "errorLoadingTutorings": "Error loading tutorings.",
+        "statusConfirm": "Mark tutoring as {status}?",
+        "statusUpdated": "Tutoring {status}"
+      }
+    }
+  },
+  "status": {
+    "reserved": "reserved",
+    "cancelled": "cancelled",
+    "completed": "completed",
+    "loading": "Loading..."
+  },
+  "common": {
+    "cancel": "Cancel",
+    "complete": "Complete",
+    "delete": "Delete",
+    "edit": "Edit",
+    "save": "Save",
+    "close": "Close",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "back": "Back"
+  },
+  "labels": {
+    "reason": "Reason",
+    "subject": "Subject",
+    "teacher": "Teacher",
+    "student": "Student",
+    "date": "Date",
+    "time": "Time",
+    "status": "Status",
+    "prof": "Prof"
+  },
+  "language": "Language"
+}
